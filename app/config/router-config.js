@@ -12,7 +12,7 @@ function routerConfig($stateProvider, $urlRouterProvider) {
     {
       name: 'home',
       url: '/home',
-      template: require('../view/home/home.html');
+      template: require('../view/home/home.html'),
       controller: 'HomeController',
       controllerAs: 'homeCtrl'
     },
@@ -33,7 +33,7 @@ function routerConfig($stateProvider, $urlRouterProvider) {
     {
       name: 'timecard',
       url: '/timecard',
-      template: require('../view/timecard/timecard.html');
+      template: require('../view/timecard/timecard.html'),
       controller: 'TimecardController',
       controllerAs: 'timecardCtrl'
     },
