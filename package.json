@@ -44,6 +44,13 @@
     "webpack": "^2.3.3"
   },
   "devDependencies": {
+    "angular-mocks": "^1.6.4",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^3.0.1",
+    "jasmine-core": "^2.6.2",
+    "karma": "^1.7.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-mocha-reporter": "^2.2.3",
     "webpack-dev-server": "^2.4.2"
   }
 }
