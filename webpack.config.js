@@ -1,50 +1,73 @@
-{
-  "name": "angular-routing-demo",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "./node_modules/webpack/bin/webpack.js",
-    "watch": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot",
-    "test-watch": "./node_modules/karma/bin/karma start",
-    "test": "./node_modules/karma/bin/karma start --single-run"
+'use strict';
+
+const dotenv = require('dotenv');
+const webpack = require('webpack');
+const HTMLPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const FaviconsPlugin = require('favicons-webpack-plugin');
+
+const production = process.env.NODE_ENV === 'production';
+
+dotenv.load();
+
+module.exports = {
+  devtool: 'eval',
+  entry: `${__dirname}/app/entry.js`,
+  output: {
+    filename: 'bundle.js',
+    path: `${__dirname}/build`
   },
-  "keywords": [],
-  "author": "Gary Lundgren",
-  "license": "ISC",
-  "dependencies": {
-    "angular": "^1.6.3",
-    "angular-animate": "^1.6.3",
-    "angular-route": "^1.6.3",
-    "angular-touch": "^1.6.3",
-    "angular-ui-router": "^0.4.2",
-    "babel-core": "^6.24.0",
-    "babel-loader": "^6.4.1",
-    "babel-preset-es2015": "^6.24.0",
-    "camelcase": "^4.0.0",
-    "clean-webpack-plugin": "^0.1.16",
-    "css-loader": "^0.27.3",
-    "dotenv": "^4.0.0",
-    "extract-text-webpack-plugin": "^2.1.0",
-    "file-loader": "^0.10.1",
-    "html-loader": "^0.4.5",
-    "html-webpack-plugin": "^2.28.0",
-    "node-sass": "^4.5.1",
-    "pascalcase": "^0.1.1",
-    "resolve-url-loader": "^2.0.2",
-    "sass-loader": "^6.0.3",
-    "style-loader": "^0.16.0",
-    "ui-router": "^1.0.0-alpha.3",
-    "url-loader": "^0.5.8",
-    "webpack": "^2.3.2"
-  },
-  "devDependencies": {
-    "angular-mocks": "^1.6.3",
-    "jasmine-core": "^2.5.2",
-    "karma": "^1.5.0",
-    "karma-jasmine": "^1.1.0",
-    "karma-phantomjs-launcher": "^1.0.4",
-    "karma-webpack": "^2.0.3",
-    "webpack-dev-server": "^2.4.2"
+  plugins: [
+    new HTMLPlugin({
+      template: `${__dirname}/app/index.html`
+    }),
+    // new FaviconsPlugin(
+    //   {
+    //     logo:`${__dirname}/assets/fit-O-matic-icon-lg.png`,
+    //     icons: {
+    //       android: true,
+    //       appleIcon: true,
+    //       appleStartup: true,
+    //       favicons: true,
+    //       firefox: true,
+    //       opengraph: true,
+    //       twitter: true,
+    //     }
+    //   }
+    // ),
+    new ExtractTextPlugin('bundle.css'),
+    new webpack.DefinePlugin({
+      __API_URL__: JSON.stringify(process.env.API_URL),
+      __DEBUG__: JSON.stringify(!production),
+      __defaultUserPhoto__: JSON.stringify(`/assets/user-anon.jpg`)
+    })
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader'
+      },
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])
+      },
+      {
+        test: /\.(gif|png|jpe?g|svg|ico)$/i,
+        include: /[app, assets]/,
+        loader: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]'
+
+      },
+      {
+        test: /\.(eot|woff|ttf|svg|otf).*/,
+        include:/node_modules/,
+        loader: 'url-loader?limit=100000&name=fonts/[hash].[ext]'
+      }
+    ]
   }
-}
+};
