@@ -12,8 +12,7 @@
       autocapitalize="off" autocorrect="off"
       placeholder="name"
       ng-minlength="2" ng-maxlength="40"
-      ng-model="signupForm.username.$error"
-    >
+      ng-model="signupForm.username.$error">
     <div class="formChecker" ng-messages="signupForm.username.$error">
       <p ng-message="minlength">Must be at least 2 characters</p>
       <p ng-message="maxlength">Must be less than 40 characters</p>

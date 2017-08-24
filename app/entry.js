@@ -2,16 +2,17 @@
 
 require('./scss/main.scss');
 
+// const $ = require('jquery');
 const path = require('path');
 const angular = require('angular');
 const camelcase = require('camelcase');
-const pascalcase = require('pascalcase');
-const uiRouter = require('angular-ui-router');
-const ngAnimate = require('angular-animate');
 const ngTouch = require('angular-touch');
+const pascalcase = require('pascalcase');
+const ngAnimate = require('angular-animate');
+const uiRouter = require('angular-ui-router');
 const ngMessages = require('angular-messages');
-const uiBootstrap = require('angular-ui-bootstrap');
 const ngFileUpload = require('ng-file-upload');
+const uiBootstrap = require('angular-ui-bootstrap');
 
 const buildpro = angular.module('buildpro', [ngTouch, ngAnimate, uiRouter, uiBootstrap, ngMessages, ngFileUpload]);
 
