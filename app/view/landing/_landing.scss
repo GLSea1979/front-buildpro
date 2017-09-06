@@ -1,7 +1,11 @@
 @import '../../scss/lib/theme/vars';
 
 .landing {
-  background-color: orange;
+  width: 90vw;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2vw;
+  background-color: grey;
   img {
     width: 70%;
   }
